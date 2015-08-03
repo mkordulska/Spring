@@ -3,48 +3,72 @@ package pl.spring.demo.dao;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.internal.util.reflection.Whitebox;
 
-import pl.spring.demo.common.Sequence;
+import pl.spring.demo.dao.BookDao;
+import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.entity.BookEntity;
-import pl.spring.demo.exception.BookNotNullIdException;
 import pl.spring.demo.to.AuthorTo;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "BookDaoImplTest-context.xml")
 public class BookDaoImplTest {
-	@Autowired
+
 	private BookDao bookDao;
-	@Autowired
-	private Sequence sequence;
+	private Set<BookEntity> ALL_BOOKS;
+
+	@Before
+	public void setUp() {
+		bookDao = new BookDaoImpl();
+		ALL_BOOKS = new HashSet<>();
+		addTestBooks();
+		Whitebox.setInternalState(bookDao, "ALL_BOOKS", ALL_BOOKS);
+	}
+
+	private void addTestBooks() {
+		ALL_BOOKS.add(new BookEntity(1L, "Opium w rosole", Arrays.asList(new AuthorTo(1L, "Hanna", "Ożogowska"))));
+		ALL_BOOKS
+				.add(new BookEntity(2L, "Awantura w Niekłaju", Arrays.asList(new AuthorTo(2L, "Edmund", "Niziurski"))));
+		ALL_BOOKS.add(new BookEntity(3L, "Pan Samochodzik i Fantomas",
+				Arrays.asList(new AuthorTo(3L, "Zbigniew", "Nienacki"))));
+	}
 
 	@Test
-	public void testShouldSaveBook() {
-		// given
-		BookEntity book = new BookEntity(null, "title", Arrays.asList(new AuthorTo(1L, "firstName", "lastName")));
-		Mockito.when(sequence.nextValue(Mockito.anyCollection())).thenReturn(6L);
+	public void testShouldFindAllBooks() {
 		// when
-		BookEntity underTest = bookDao.save(book);
+		List<BookEntity> allBooks = bookDao.findAll();
 		// then
-		Mockito.verify(sequence).nextValue(Mockito.anyCollection());
-		assertNotNull(underTest);
-		assertEquals(6L, underTest.getId().longValue());
+		assertNotNull(allBooks);
+		assertFalse(allBooks.isEmpty());
+		assertEquals(3, allBooks.size());
 	}
 
-	@Test(expected = BookNotNullIdException.class)
-	public void testShouldThrowBookNotNullIdException() {
+	@Test
+	public void testShouldFindAllBooksByTitle() {
 		// given
-		BookEntity book = new BookEntity(null, "title", Arrays.asList(new AuthorTo(1L, "firstName", "lastName")));
-		book.setId(22L);
+		final String title = "opium w";
 		// when
-		bookDao.save(book);
+		List<BookEntity> booksByTitle = bookDao.findBookByTitle(title);
 		// then
-		fail("test should throw BookNotNullIdException");
+		assertNotNull(booksByTitle);
+		assertFalse(booksByTitle.isEmpty());
+		assertEquals(1, booksByTitle.size());
 	}
+
+	@Test
+	public void testShouldFindAllBooksByAuthor() {
+		// given
+		final String author = "NI";
+		// when
+		List<BookEntity> booksByAuthor = bookDao.findBooksByAuthor(author);
+		// then
+		assertNotNull(booksByAuthor);
+		assertFalse(booksByAuthor.isEmpty());
+		assertEquals(2, booksByAuthor.size());
+	}
+
 }
