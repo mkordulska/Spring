@@ -27,7 +27,6 @@ public class BookServiceImplTest {
 		// then
 		assertNotNull(allBooks);
 		assertFalse(allBooks.isEmpty());
-		assertEquals(6, allBooks.size());
 	}
 
 	@Test

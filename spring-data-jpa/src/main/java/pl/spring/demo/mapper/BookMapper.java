@@ -5,7 +5,6 @@ import pl.spring.demo.to.AuthorTo;
 import pl.spring.demo.to.BookTo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -18,11 +17,11 @@ public class BookMapper {
 			String authors = "";
 			for (int i = 0; i < bookEntity.getAuthors().size(); i++) {
 				if (i != bookEntity.getAuthors().size() - 1) {
-					authors = authors.concat(bookEntity.getAuthors().get(i).getFirstName() + " "
-							+ bookEntity.getAuthors().get(i).getLastName() + ", ");
+					authors = authors + bookEntity.getAuthors().get(i).getFirstName() + " "
+							+ bookEntity.getAuthors().get(i).getLastName() + ", ";
 				} else {
-					authors = authors.concat(bookEntity.getAuthors().get(i).getFirstName() + " "
-							+ bookEntity.getAuthors().get(i).getLastName());
+					authors = authors + bookEntity.getAuthors().get(i).getFirstName() + " "
+							+ bookEntity.getAuthors().get(i).getLastName();
 				}
 			}
 			return new BookTo(bookEntity.getId(), bookEntity.getTitle(), authors);
@@ -32,10 +31,11 @@ public class BookMapper {
 
 	public BookEntity toBookEntity(BookTo bookTo) {
 		if (bookTo != null) {
+			List<AuthorTo> authors = new ArrayList<>();
 			for (String author : bookTo.getAuthors().split(",")) {
-				return new BookEntity(bookTo.getId(), bookTo.getTitle(),
-						Arrays.asList(new AuthorTo(1L, author.split(" ")[0], author.split(" ")[1])));
+				authors.add(new AuthorTo(1L, author.split(" ")[0], author.split(" ")[1]));
 			}
+			return new BookEntity(bookTo.getId(), bookTo.getTitle(), authors);
 		}
 		return null;
 	}

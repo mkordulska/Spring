@@ -113,7 +113,7 @@ public class BookServiceImplMockTestWithMockMapper {
 		// when
 		bookService.saveBook(bookToSave);
 		// then
-		Mockito.verify(bookDao).save(bookDao.save(bookMapper.toBookEntity(bookToSave)));
+		Mockito.verify(bookDao).save(bookMapper.toBookEntity(bookToSave));
 		fail("test should throw BookNotNullIdException");
 	}
 }
