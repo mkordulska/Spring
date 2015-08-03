@@ -18,7 +18,7 @@ import pl.spring.demo.to.AuthorTo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "BookDaoImplTest-context.xml")
-public class BookDaoImplSpringContextTest {
+public class BookDaoImplWithSpringContextTest {
 	@Autowired
 	private BookDao bookDao;
 	@Autowired

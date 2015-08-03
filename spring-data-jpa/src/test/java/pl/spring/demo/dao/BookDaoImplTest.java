@@ -24,17 +24,11 @@ public class BookDaoImplTest {
 	@Before
 	public void setUp() {
 		bookDao = new BookDaoImpl();
-		ALL_BOOKS = new HashSet<>();
-		addTestBooks();
+		ALL_BOOKS = new HashSet<>(Arrays.asList(
+				new BookEntity(1L, "Opium w rosole", Arrays.asList(new AuthorTo(1L, "Hanna", "Ożogowska"))),
+				new BookEntity(2L, "Awantura w Niekłaju", Arrays.asList(new AuthorTo(2L, "Edmund", "Niziurski"))),
+				new BookEntity(3L, "Pan Samochodzik i Fantomas", Arrays.asList(new AuthorTo(3L, "Zbigniew", "Nienacki")))));
 		Whitebox.setInternalState(bookDao, "ALL_BOOKS", ALL_BOOKS);
-	}
-
-	private void addTestBooks() {
-		ALL_BOOKS.add(new BookEntity(1L, "Opium w rosole", Arrays.asList(new AuthorTo(1L, "Hanna", "Ożogowska"))));
-		ALL_BOOKS
-				.add(new BookEntity(2L, "Awantura w Niekłaju", Arrays.asList(new AuthorTo(2L, "Edmund", "Niziurski"))));
-		ALL_BOOKS.add(new BookEntity(3L, "Pan Samochodzik i Fantomas",
-				Arrays.asList(new AuthorTo(3L, "Zbigniew", "Nienacki"))));
 	}
 
 	@Test
