@@ -50,6 +50,17 @@ public class BookServiceImplIntegrationTest {
 		assertNotNull(booksByAuthor);
 		assertFalse(booksByAuthor.isEmpty());
 	}
+	
+	@Test
+	public void testShouldSaveBook(){
+		// given
+		final BookTo bookToSave = new BookTo(null, "title", "firstName lastName");
+		//when
+		BookTo underTest = bookService.saveBook(bookToSave);
+		// then
+		assertNotNull(bookToSave);
+		assertNotNull(underTest.getId().longValue());
+	}
 
 	@Test(expected = BookNotNullIdException.class)
 	public void testShouldThrowBookNotNullIdException() {
