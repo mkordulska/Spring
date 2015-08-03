@@ -4,23 +4,22 @@ import java.lang.reflect.Method;
 
 import org.springframework.aop.MethodBeforeAdvice;
 
-import pl.spring.demo.annotation.NullableId;
+import pl.spring.demo.annotation.SetId;
 import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.entity.BookEntity;
 
 public class BookDaoSetAdvisor implements MethodBeforeAdvice {
 
-
-	private void setId(Object arg, Object o) {
-		if(arg instanceof BookEntity && ((BookEntity) arg).getId() == null){
-			((BookEntity) arg).setId(((BookDaoImpl) o).getNextId());
+	@Override
+	public void before(Method method, Object[] objects, Object o) throws Throwable {
+		if (hasAnnotation(method, o, SetId.class)) {
+			setId(objects[0], o);
 		}
 	}
 
-	@Override
-	public void before(Method method, Object[] objects, Object o) throws Throwable {
-		if (hasAnnotation(method, o, NullableId.class)) {
-			setId(objects[0], o);
+	private void setId(Object arg, Object bookDaoImpl) {
+		if(arg instanceof BookEntity && ((BookEntity) arg).getId() == null){
+			((BookEntity) arg).setId(((BookDaoImpl) bookDaoImpl).getNextId());
 		}
 	}
 	

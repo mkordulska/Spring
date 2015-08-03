@@ -33,7 +33,7 @@ public class BookDaoImplTest {
 		BookEntity underTest = bookDao.save(book);
 		// then
 		Mockito.verify(sequence).nextValue(Mockito.anyCollection());
-		assertNotNull(underTest.getId().longValue());
+		assertNotNull(underTest);
 		assertEquals(6L, underTest.getId().longValue());
 	}
 

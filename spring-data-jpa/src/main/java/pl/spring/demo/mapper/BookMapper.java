@@ -14,28 +14,14 @@ public class BookMapper {
 
 	public BookTo toBookTo(BookEntity bookEntity) {
 		if (bookEntity != null) {
-			String authors = "";
-			for (int i = 0; i < bookEntity.getAuthors().size(); i++) {
-				if (i != bookEntity.getAuthors().size() - 1) {
-					authors = authors + bookEntity.getAuthors().get(i).getFirstName() + " "
-							+ bookEntity.getAuthors().get(i).getLastName() + ", ";
-				} else {
-					authors = authors + bookEntity.getAuthors().get(i).getFirstName() + " "
-							+ bookEntity.getAuthors().get(i).getLastName();
-				}
-			}
-			return new BookTo(bookEntity.getId(), bookEntity.getTitle(), authors);
+			return new BookTo(bookEntity.getId(), bookEntity.getTitle(), authorsInBookTo(bookEntity.getAuthors()));
 		}
 		return null;
 	}
 
 	public BookEntity toBookEntity(BookTo bookTo) {
 		if (bookTo != null) {
-			List<AuthorTo> authors = new ArrayList<>();
-			for (String author : bookTo.getAuthors().split(",")) {
-				authors.add(new AuthorTo(1L, author.split(" ")[0], author.split(" ")[1]));
-			}
-			return new BookEntity(bookTo.getId(), bookTo.getTitle(), authors);
+			return new BookEntity(bookTo.getId(), bookTo.getTitle(), authorsInBookEntity(bookTo.getAuthors()));
 		}
 		return null;
 	}
@@ -60,5 +46,27 @@ public class BookMapper {
 			return bookToList;
 		}
 		return null;
+	}
+	
+	private String authorsInBookTo(List<AuthorTo> authors){
+		StringBuilder authorsSb = new StringBuilder();
+		for (int i = 0; i < authors.size(); i++) {
+			if (i != authors.size() - 1) {
+				authorsSb.append(authors.get(i).getFirstName() + " "
+						+ authors.get(i).getLastName() + ", ");
+			} else {
+				authorsSb.append(authors.get(i).getFirstName() + " "
+						+ authors.get(i).getLastName());
+			}
+		}
+		return authorsSb.toString();
+	}
+	
+	private List<AuthorTo> authorsInBookEntity(String authors){
+		List<AuthorTo> authorsList = new ArrayList<>();
+		for (String author : authors.split(",")) {
+			authorsList.add(new AuthorTo(1L, author.split(" ")[0], author.split(" ")[1]));
+		}
+		return authorsList;
 	}
 }

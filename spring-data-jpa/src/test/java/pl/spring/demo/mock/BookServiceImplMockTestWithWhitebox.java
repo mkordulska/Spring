@@ -108,6 +108,7 @@ public class BookServiceImplMockTestWithWhitebox {
 		BookTo underTest = bookService.saveBook(bookToSave);
 		// then
 		Mockito.verify(bookDao).save(Mockito.any(BookEntity.class));
+		assertNotNull(underTest);
 		assertEquals(1L, underTest.getId().longValue());
 	}
 

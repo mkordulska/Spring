@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonServiceTest-context.xml")
-public class BookServiceImplTest {
+public class BookServiceImplIntegrationTest {
 
 	@Autowired
 	private BookService bookService;

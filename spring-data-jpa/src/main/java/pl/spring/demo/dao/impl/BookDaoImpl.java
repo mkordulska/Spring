@@ -1,6 +1,7 @@
 package pl.spring.demo.dao.impl;
 
 import pl.spring.demo.annotation.NullableId;
+import pl.spring.demo.annotation.SetId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;
@@ -39,6 +40,7 @@ public class BookDaoImpl implements BookDao {
 			for (String wordInTitle : book.getTitle().split(" ")) {
 				if (wordInTitle.regionMatches(true, 0, title, 0, title.length())) {
 					booksByTitle.add(book);
+					break;
 				}
 			}
 		}
@@ -53,6 +55,7 @@ public class BookDaoImpl implements BookDao {
 				if (a.getFirstName().regionMatches(true, 0, author, 0, author.length())
 						|| a.getLastName().regionMatches(true, 0, author, 0, author.length())) {
 					booksByAuthor.add(book);
+					break;
 				}
 			}
 		}
@@ -61,6 +64,7 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	@NullableId
+	@SetId
 	public BookEntity save(BookEntity book) {
 		ALL_BOOKS.add(book);
 		return book;
