@@ -37,11 +37,8 @@ public class BookDaoImpl implements BookDao {
 	public List<BookEntity> findBookByTitle(String title) {
 		List<BookEntity> booksByTitle = new ArrayList<>();
 		for (BookEntity book : ALL_BOOKS) {
-			for (String wordInTitle : book.getTitle().split(" ")) {
-				if (wordInTitle.regionMatches(true, 0, title, 0, title.length())) {
-					booksByTitle.add(book);
-					break;
-				}
+			if (book.getTitle().regionMatches(true, 0, title, 0, title.length())) {
+				booksByTitle.add(book);
 			}
 		}
 		return booksByTitle;

@@ -32,7 +32,7 @@ public class BookServiceImplIntegrationTest {
 	@Test
 	public void testShouldFindAllBooksByTitle() {
 		// given
-		final String title = "W";
+		final String title = "opium w";
 		// when
 		List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
 		// then

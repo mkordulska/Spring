@@ -19,11 +19,12 @@ import pl.spring.demo.to.AuthorTo;
 public class BookDaoImplMockTest {
 
 	private BookDao bookDao;
-	private final Set<BookEntity> ALL_BOOKS = new HashSet<>();
+	private Set<BookEntity> ALL_BOOKS;
 
 	@Before
 	public void setUp() {
 		bookDao = new BookDaoImpl();
+		ALL_BOOKS = new HashSet<>();
 		addTestBooks();
 		Whitebox.setInternalState(bookDao, "ALL_BOOKS", ALL_BOOKS);
 	}
@@ -49,13 +50,13 @@ public class BookDaoImplMockTest {
 	@Test
 	public void testShouldFindAllBooksByTitle() {
 		// given
-		final String title = "W";
+		final String title = "opium w";
 		// when
 		List<BookEntity> booksByTitle = bookDao.findBookByTitle(title);
 		// then
 		assertNotNull(booksByTitle);
 		assertFalse(booksByTitle.isEmpty());
-		assertEquals(2, booksByTitle.size());
+		assertEquals(1, booksByTitle.size());
 	}
 
 	@Test

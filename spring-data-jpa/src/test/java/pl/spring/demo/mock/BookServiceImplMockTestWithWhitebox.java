@@ -23,7 +23,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,10 +49,10 @@ public class BookServiceImplMockTestWithWhitebox {
 	@Test
 	public void testShouldFindAllBooks() {
 		// given
-		List<BookEntity> allBooks = new ArrayList<>();
-		allBooks.add(new BookEntity(1L, "Romeo i Julia", Arrays.asList(new AuthorTo(1L, "Wiliam", "Szekspir"))));
-		allBooks.add(new BookEntity(2L, "Opium w rosole", Arrays.asList(new AuthorTo(2L, "Hanna", "Ożogowska"))));
-		allBooks.add(new BookEntity(3L, "Przygody Odyseusza", Arrays.asList(new AuthorTo(3L, "Jan", "Parandowski"))));
+		List<BookEntity> allBooks = Arrays.asList(
+				new BookEntity(1L, "Romeo i Julia", Arrays.asList(new AuthorTo(1L, "Wiliam", "Szekspir"))),
+				new BookEntity(2L, "Opium w rosole", Arrays.asList(new AuthorTo(2L, "Hanna", "Ożogowska"))),
+				new BookEntity(3L, "Przygody Odyseusza", Arrays.asList(new AuthorTo(3L, "Jan", "Parandowski"))));
 		Mockito.when(bookDao.findAll()).thenReturn(allBooks);
 		// when
 		List<BookTo> underTest = bookService.findAllBooks();
@@ -67,10 +66,9 @@ public class BookServiceImplMockTestWithWhitebox {
 	@Test
 	public void testShouldFindAllBooksByTitle() {
 		// given
-		final String title = "W";
-		List<BookEntity> booksByTitle = new ArrayList<>();
-		booksByTitle.add(new BookEntity(2L, "Opium w rosole", Arrays.asList(new AuthorTo(2L, "Hanna", "Ożogowska"))));
-		booksByTitle.add(new BookEntity(4L, "Awantura w Niekłaju", Arrays.asList(new AuthorTo(4L, "Edmund", "Niziurski"))));
+		final String title = "opium w";
+		List<BookEntity> booksByTitle = Arrays
+				.asList(new BookEntity(2L, "Opium w rosole", Arrays.asList(new AuthorTo(2L, "Hanna", "Ożogowska"))));
 		Mockito.when(bookDao.findBookByTitle(title)).thenReturn(booksByTitle);
 		// when
 		List<BookTo> underTest = bookService.findBooksByTitle(title);
@@ -78,16 +76,17 @@ public class BookServiceImplMockTestWithWhitebox {
 		Mockito.verify(bookDao).findBookByTitle(title);
 		assertNotNull(underTest);
 		assertFalse(underTest.isEmpty());
-		assertEquals(2, underTest.size());
+		assertEquals(1, underTest.size());
 	}
 
 	@Test
 	public void testShouldFindAllBooksByAuthor() {
 		// given
 		final String author = "NI";
-		List<BookEntity> booksByAuthor = new ArrayList<>();
-		booksByAuthor.add(new BookEntity(5L, "Pan Samochodzik i Fantomas",Arrays.asList(new AuthorTo(5L, "Zbigniew", "Nienacki"))));;
-		booksByAuthor.add(new BookEntity(4L, "Awantura w Niekłaju", Arrays.asList(new AuthorTo(4L, "Edmund", "Niziurski"))));
+		List<BookEntity> booksByAuthor = Arrays.asList(
+				new BookEntity(5L, "Pan Samochodzik i Fantomas",
+						Arrays.asList(new AuthorTo(5L, "Zbigniew", "Nienacki"))),
+				new BookEntity(4L, "Awantura w Niekłaju", Arrays.asList(new AuthorTo(4L, "Edmund", "Niziurski"))));
 		Mockito.when(bookDao.findBooksByAuthor(author)).thenReturn(booksByAuthor);
 		// when
 		List<BookTo> underTest = bookService.findBooksByAuthor(author);
