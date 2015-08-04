@@ -17,7 +17,7 @@ public class BookMapperTest {
 	private BookMapper bookMapper;
 
 	@Before
-	public void setUpt() {
+	public void setUp() {
 		bookMapper = new BookMapper();
 	}
 

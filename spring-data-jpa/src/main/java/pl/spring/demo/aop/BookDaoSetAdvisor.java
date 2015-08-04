@@ -3,11 +3,13 @@ package pl.spring.demo.aop;
 import java.lang.reflect.Method;
 
 import org.springframework.aop.MethodBeforeAdvice;
+import org.springframework.stereotype.Component;
 
 import pl.spring.demo.annotation.SetId;
 import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.entity.BookEntity;
 
+@Component
 public class BookDaoSetAdvisor implements MethodBeforeAdvice {
 
 	@Override

@@ -1,6 +1,7 @@
 package pl.spring.demo.aop;
 
 import org.springframework.aop.MethodBeforeAdvice;
+import org.springframework.stereotype.Component;
 
 import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.exception.BookNotNullIdException;
@@ -8,6 +9,7 @@ import pl.spring.demo.to.IdAware;
 
 import java.lang.reflect.Method;
 
+@Component
 public class BookDaoNotNullAdvisor implements MethodBeforeAdvice {
 
 	@Override
