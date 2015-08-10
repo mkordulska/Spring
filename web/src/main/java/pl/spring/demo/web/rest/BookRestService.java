@@ -24,4 +24,14 @@ public class BookRestService {
     public BookTo saveBook(@RequestBody BookTo book) {
         return bookService.saveBook(book);
     }
+
+	@RequestMapping(value = "/updateBook", method = RequestMethod.PUT)
+	public BookTo updateBook(@RequestBody BookTo book) {
+		return bookService.updateBook(book);
+	}
+
+	@RequestMapping(value = "/deleteBook", method = RequestMethod.DELETE)
+	public void deleteBook(@RequestParam("id") Long id) {
+		bookService.deleteBook(id);
+	}
 }

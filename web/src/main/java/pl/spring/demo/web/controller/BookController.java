@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 
@@ -20,5 +23,18 @@ public class BookController {
         final List<BookTo> allBooks = bookService.findAllBooks();
         params.put("books", allBooks);
         return "bookList";
+    }
+
+    @RequestMapping(value = "/book-by-id", method = RequestMethod.GET)
+    public String bookDelete(@RequestParam(value = "id") Long id, RedirectAttributes redirectAttributes) {
+    	String title = bookService.findBookById(id).getTitle();
+    	redirectAttributes.addFlashAttribute("title", title);
+    	bookService.deleteBook(id);
+    	return "redirect:/confirmation";
+    }
+    
+    @RequestMapping(value = "/confirmation", method = RequestMethod.GET)
+    public String deleteConfirmation(){
+    	return "bookDelete";
     }
 }
