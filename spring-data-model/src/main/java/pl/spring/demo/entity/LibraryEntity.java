@@ -20,7 +20,7 @@ public class LibraryEntity {
 	private Long id;
 	@Column(nullable = false, length = 50)
 	private String name;
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "library")
 	private Set<BookEntity> books;
 
 	public Long getId() {
