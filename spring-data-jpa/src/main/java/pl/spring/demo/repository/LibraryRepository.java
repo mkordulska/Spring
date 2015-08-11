@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import pl.spring.demo.entity.LibraryEntity;
 
-public interface LibraryRepository extends JpaRepository<LibraryEntity, Long>{
+public interface LibraryRepository extends JpaRepository<LibraryEntity, Long> {
 
-    @Query("select library from LibraryEntity library where upper(library.name) like concat(upper(:name), '%')")
-    public List<LibraryEntity> findLibraryByName(@Param("name") String name);
+	@Query("select library from LibraryEntity library where upper(library.name) like concat(upper(:name), '%')")
+	public List<LibraryEntity> findLibraryByName(@Param("name") String name);
 }
