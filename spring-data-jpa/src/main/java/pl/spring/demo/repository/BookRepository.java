@@ -7,7 +7,7 @@ import pl.spring.demo.entity.BookEntity;
 
 import java.util.List;
 
-public interface BookRepository extends JpaRepository<BookEntity, Long> {
+public interface BookRepository extends JpaRepository<BookEntity, Long>, MyCustomBookRepository {
 
     @Query("select book from BookEntity book where upper(book.title) like concat(upper(:title), '%')")
     public List<BookEntity> findBookByTitle(@Param("title") String title);

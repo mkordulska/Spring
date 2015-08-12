@@ -3,7 +3,6 @@ package pl.spring.demo.repository;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -46,6 +45,5 @@ public class LibraryRepositoryTest {
 		List<BookEntity> bookEntityAfterDelete = bookRepository.findAll();
 		// then
 		assertNotEquals(bookEntity.size(), bookEntityAfterDelete.size());
-		assertTrue(bookEntityAfterDelete.size()<bookEntity.size());
     }
 }

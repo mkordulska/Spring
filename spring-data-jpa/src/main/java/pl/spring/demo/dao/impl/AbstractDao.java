@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-@Transactional(Transactional.TxType.SUPPORTS)
+@Transactional(Transactional.TxType.REQUIRED)
 public abstract class AbstractDao<T, K extends Serializable> implements Dao<T, K> {
 
     @PersistenceContext
