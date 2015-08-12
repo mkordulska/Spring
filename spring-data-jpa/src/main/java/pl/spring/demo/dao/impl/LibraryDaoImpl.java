@@ -10,7 +10,7 @@ import pl.spring.demo.entity.LibraryEntity;
 public class LibraryDaoImpl extends AbstractDao<LibraryEntity, Long>implements LibraryDao {
 
 	@Override
-	public List<LibraryEntity> findLibraryByName(String name) {
+	public List<LibraryEntity> findLibrariesByName(String name) {
 		TypedQuery<LibraryEntity> query = entityManager.createQuery(
 				"select library from LibraryEntity library where upper(library.name) like concat(upper(:name), '%')",
 				LibraryEntity.class);

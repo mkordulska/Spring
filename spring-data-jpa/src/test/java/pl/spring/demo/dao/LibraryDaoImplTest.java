@@ -24,7 +24,7 @@ public class LibraryDaoImplTest {
         // given
         final String libraryName = "bibl";
         // when
-        List<LibraryEntity> libraryEntity = libraryDao.findLibraryByName(libraryName);
+        List<LibraryEntity> libraryEntity = libraryDao.findLibrariesByName(libraryName);
         // then
         assertNotNull(libraryEntity);
         assertFalse(libraryEntity.isEmpty());
