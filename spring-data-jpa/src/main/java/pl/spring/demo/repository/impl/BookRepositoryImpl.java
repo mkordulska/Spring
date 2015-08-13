@@ -16,7 +16,7 @@ import pl.spring.demo.searchcriteria.BookSearchCriteria;
 
 public class BookRepositoryImpl implements MyCustomBookRepository {
 
-	@PersistenceContext(name = "hsql")
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
@@ -33,8 +33,7 @@ public class BookRepositoryImpl implements MyCustomBookRepository {
 		if (bookSearchCriteria.getLibraryName() != null) {
 			restriction.and(bookEntity.library.name.startsWithIgnoreCase(bookSearchCriteria.getLibraryName()));
 		}
-		query.where(restriction);
-		return query.list(bookEntity);
+		return query.where(restriction).listResults(bookEntity).getResults();
 	}
 
 }
