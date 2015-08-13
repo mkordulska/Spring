@@ -5,6 +5,6 @@
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<import resource="../common_configuration/CommonDatabase-context.xml" />
-	<import resource="../common_configuration/CommonSpring-context.xml" />
-
+	<import resource="../common_configuration/CommonSpring-context.xml"/>
+	
 </beans>
