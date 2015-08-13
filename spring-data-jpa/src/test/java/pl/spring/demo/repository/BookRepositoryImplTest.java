@@ -21,38 +21,79 @@ public class BookRepositoryImplTest {
 	private MyCustomBookRepository bookRepositoryImpl;
 
 	@Test
-	public void testShouldFind2BooksFor1Criteria() {
-		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withLibraryName("biblioteka m").build();
-		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);	
+	public void testShouldFindAllBooksForNoCriteria() {
+		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().build();
+		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);
+		assertNotNull(books);
+		assertFalse(books.isEmpty());
+		assertEquals(3, books.size());
+	}
+
+	@Test
+	public void testShouldFind1BookFor1CriteriaTitle() {
+		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withTitle("d").build();
+		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);
+		assertNotNull(books);
+		assertFalse(books.isEmpty());
+		assertEquals(1, books.size());
+	}
+
+	@Test
+	public void testShouldFind2BooksFor1CriteriaAuthor() {
+		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withAuthor("jan")
+				.build();
+		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);
 		assertNotNull(books);
 		assertFalse(books.isEmpty());
 		assertEquals(2, books.size());
 	}
-	
+
 	@Test
-	public void testShouldFind1BookFor2Criterias() {
-		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withTitle("d").withLibraryName("biblioteka m").build();
-		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);	
+	public void testShouldFind2BooksFor1CriteriaLibraryName() {
+		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria()
+				.withLibraryName("biblioteka m").build();
+		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);
+		assertNotNull(books);
+		assertFalse(books.isEmpty());
+		assertEquals(2, books.size());
+	}
+
+	@Test
+	public void testShouldFind1BookFor2CriteriasTitleAndAuthor() {
+		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withTitle("d")
+				.withAuthor("now").build();
+		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);
 		assertNotNull(books);
 		assertFalse(books.isEmpty());
 		assertEquals(1, books.size());
 	}
-	
+
+	@Test
+	public void testShouldFind1BookFor2CriteriasTitleAndLibraryName() {
+		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withTitle("d")
+				.withLibraryName("biblioteka m").build();
+		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);
+		assertNotNull(books);
+		assertFalse(books.isEmpty());
+		assertEquals(1, books.size());
+	}
+
+	@Test
+	public void testShouldNotFindAnythingFor2CriteriasAuthorAndLibraryName() {
+		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withAuthor("kow")
+				.withLibraryName("biblioteka m").build();
+		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);
+		assertTrue(books.isEmpty());
+	}
+
 	@Test
 	public void testShouldFind1BookForAllCriterias() {
-		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withTitle("d").withAuthor("now").withLibraryName("biblioteka m").build();
-		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);	
+		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withTitle("d")
+				.withAuthor("now").withLibraryName("biblioteka m").build();
+		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);
 		assertNotNull(books);
 		assertFalse(books.isEmpty());
 		assertEquals(1, books.size());
-	}
-	@Test
-	public void testShouldFindAllBooksForNoCriteria() {
-		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().build();
-		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);	
-		assertNotNull(books);
-		assertFalse(books.isEmpty());
-		assertEquals(3, books.size());
 	}
 
 }
