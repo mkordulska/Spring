@@ -1,7 +1,5 @@
 package pl.spring.demo.searchcriteria;
 
-import pl.spring.demo.entity.AuthorEntity;
-
 public class BookSearchCriteriaBuilder {
     
     private BookSearchCriteria underConstruction;
@@ -17,7 +15,7 @@ public class BookSearchCriteriaBuilder {
         return this;
     }
     
-    public BookSearchCriteriaBuilder withAuthor(AuthorEntity author) {
+    public BookSearchCriteriaBuilder withAuthor(String author) {
         underConstruction.author = author;
         return this;
     }

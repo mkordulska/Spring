@@ -4,14 +4,12 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import pl.spring.demo.entity.AuthorEntity;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.searchcriteria.BookSearchCriteria;
 import pl.spring.demo.searchcriteria.BookSearchCriteriaBuilder;
@@ -42,8 +40,7 @@ public class BookRepositoryImplTest {
 	
 	@Test
 	public void testShouldFind1BookForAllCriterias() {
-		AuthorEntity author = new AuthorEntity(8L, "Zbigniew", "Nowak");
-		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withTitle("d").withAuthor(author).withLibraryName("biblioteka m").build();
+		BookSearchCriteria bookSearchCriteria = BookSearchCriteriaBuilder.aBookSearchCriteria().withTitle("d").withAuthor("now").withLibraryName("biblioteka m").build();
 		List<BookEntity> books = bookRepositoryImpl.findBooksByBookSearchCriteria(bookSearchCriteria);	
 		assertNotNull(books);
 		assertFalse(books.isEmpty());
